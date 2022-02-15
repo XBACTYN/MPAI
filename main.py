@@ -13,10 +13,10 @@ from skimage.exposure import histogram
 
 
 settings = {
-    'source_path': 'C:/Users/user/Desktop/MPAILab1/hat.jpg',
-    'result_path': 'C:/Users/user/Desktop/MPAILab1/hat2.jpg',
-    'positionX': 30,
-    'positionY': 30,
+    'source_path': 'C:/Users/user/Desktop/MPAILab1/flower.jpg',
+    'result_path': 'C:/Users/user/Desktop/MPAILab1/flower2.jpg',
+    'positionX': 540,
+    'positionY': 587,
     'color': ''
 }
 
@@ -33,7 +33,7 @@ path = json_data['source_path']     #Блок отвечает за чтение
 #img = rgb2gray(imread(path)).astype(np.uint8)
 img = rgb2gray(imread(path))
 print('Image shape: ', img.shape)
-filled_img = flood_fill(img, (250, 1000), 0.5, tolerance=0.15)
+filled_img = flood_fill(img, (json_data['positionX'], json_data['positionY']), 1, tolerance=0.3)
 imsave(json_data['result_path'], filled_img)
 
 
@@ -44,9 +44,9 @@ fig.add_subplot(1, 2, 2)
 imshow(filled_img,cmap = plt.cm.gray)
 plt.show()
 
-hist_red, bins_red = histogram(img[500:600,300:400])
-hist_green, bins_green = histogram(img[500:600,300:400])
-hist_blue, bins_blue = histogram(img[500:600,300:400])
+hist_red, bins_red = histogram(img)
+hist_green, bins_green = histogram(img)
+hist_blue, bins_blue = histogram(img)
 
 fig2 = plt.figure(figsize = (10, 5))
 plt.ylabel('Число отсчетов')
