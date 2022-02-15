@@ -1,15 +1,11 @@
 import json
 
-import numpy as np
-import imageio
-
-from skimage import data, filters, color, morphology
-from skimage.color import rgb2gray
-from skimage.segmentation import flood, flood_fill
-from skimage.io import imread, imsave
 from matplotlib import pyplot as plt
-from skimage.io import imshow, show
+from skimage.color import rgb2gray
 from skimage.exposure import histogram
+from skimage.io import imread, imsave
+from skimage.io import imshow
+from skimage.segmentation import flood_fill
 
 settings = {
     'source_path': 'C:/Users/user/Desktop/MPAILab1/flower.jpg',
