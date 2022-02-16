@@ -8,11 +8,12 @@ from skimage.io import imshow
 from skimage.segmentation import flood_fill
 
 settings = {
-    'source_path': 'C:/Users/user/Desktop/MPAILab1/flower.jpg',
-    'result_path': 'C:/Users/user/Desktop/MPAILab1/flower2.jpg',
-    'positionX': 540,
-    'positionY': 587,
-    'brightness': 0.5
+    'source_path': 'C:/Users/user/Desktop/MPAILab1/revy.jpg',
+    'result_path': 'C:/Users/user/Desktop/MPAILab1/revy2.jpg',
+    'positionX': 150,
+    'positionY': 1640,
+    'brightness': 0.5,
+    'tolerance': 0.1
 }
 
 with open('settings.json', 'w') as fp:
@@ -29,7 +30,7 @@ path = json_data['source_path']  # Блок отвечает за чтение �
 # img = rgb2gray(imread(path)).astype(np.uint8)
 img = rgb2gray(imread(path))
 print('Image shape: ', img.shape)
-filled_img = flood_fill(img, (json_data['positionX'], json_data['positionY']), json_data['brightness'], tolerance=0.3)
+filled_img = flood_fill(img, (json_data['positionX'], json_data['positionY']), json_data['brightness'], tolerance = json_data['tolerance'])
 imsave(json_data['result_path'], filled_img)
 
 fig = plt.figure(figsize=(12, 8))  # Блок отвечает за вывод изображения
@@ -39,30 +40,18 @@ fig.add_subplot(2, 2, 2)
 imshow(filled_img, cmap=plt.cm.gray)
 
 
-hist_red, bins_red = histogram(img)
-hist_green, bins_green = histogram(img)
-hist_blue, bins_blue = histogram(img)
+hist_brightness, bins_brightness = histogram(img)
+
 
 fig.add_subplot(2, 2, 3)
-plt.ylabel('Число отсчетов')
-plt.ylabel('Значение яркости')
-plt.title('Гистограмма распределения ярокстей по каждому каналу')
-plt.plot(bins_green, hist_green, color='green', linestyle='-', linewidth=1)
-plt.plot(bins_red, hist_red, color='red', linestyle='-', linewidth=1)
-plt.plot(bins_blue, hist_blue, color='blue', linestyle='-', linewidth=1)
-plt.legend(['green', 'red', 'blue'])
+plt.plot(bins_brightness, hist_brightness, color='black', linestyle='-', linewidth=1)
+plt.legend(['brightness'])
 
-hist_red, bins_red = histogram(filled_img)
-hist_green, bins_green = histogram(filled_img)
-hist_blue, bins_blue = histogram(filled_img)
+hist_brightness, bins_brightness = histogram(filled_img)
+
 fig.add_subplot(2, 2, 4)
-plt.ylabel('Число отсчетов')
-plt.ylabel('Значение яркости')
-plt.title('Гистограмма распределения ярокстей по каждому каналу')
-plt.plot(bins_green, hist_green, color='green', linestyle='-', linewidth=1)
-plt.plot(bins_red, hist_red, color='red', linestyle='-', linewidth=1)
-plt.plot(bins_blue, hist_blue, color='blue', linestyle='-', linewidth=1)
-plt.legend(['green', 'red', 'blue'])
+plt.plot(bins_brightness, hist_brightness, color='black', linestyle='-', linewidth=1)
+plt.legend(['brightness'])
 
 
 plt.show()
